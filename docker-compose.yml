@@ -11,3 +11,13 @@ services:
       - START_DAY=0
       - OFFSET_HOUR=${offset:-0}
     command: [ "runRasp.sh","TIR" ]
+  tir1:
+    image: blipmaps.nl/combined:latest
+    build: .
+    volumes:
+      - /home/florian/rasp/results/OUT:/root/rasp/TIR/OUT
+      - /home/florian/rasp/results/LOG:/root/rasp/TIR/LOG
+    environment:
+      - START_DAY=1
+      - OFFSET_HOUR=${offset:-0}
+    command: [ "runRasp.sh","TIR" ]
