@@ -39,12 +39,20 @@ ncl bin/meteogram.ncl DOMAIN=\"${region}\" SITEDATA=\"/root/rasp/bin/sitedata.nc
 # TODO: rename files in order to correct winter time / summer time ?
 
 ########################################################
-# Move images for later processing (moving, transforming, ... anything not RASP related)
-targetDir="/root/rasp/${region}/OUT/${startDate}/${startTime}/${region}/${START_DAY}"
-mkdir -p ${targetDir}
+# Generate title JSONs from data files
+perl bin/title2json.pl /root/rasp/${region}/OUT
+
 chmod -R uga+rwX /root/rasp/${region}/OUT/*
 
+targetDir="/root/rasp/${region}/OUT/${startDate}/${startTime}/${region}/${START_DAY}"
+# Make a link to the latest results
+mkdir -p ${targetDir}
+unlink /root/rasp/${region}/OUT/${START_DAY}latest
+ln -s ${targetDir} /root/rasp/${region}/OUT/${START_DAY}latest
+
+# Move results for later processing (moving, transforming, ... anything not RASP related)
 mv /root/rasp/${region}/OUT/*.data ${targetDir}
+mv /root/rasp/${region}/OUT/*.json ${targetDir}
 mv /root/rasp/${region}/OUT/*.png ${targetDir}
 mv /root/rasp/${region}/wrfout_d02_* ${targetDir}
 chmod 666 ${targetDir}/*

@@ -8,7 +8,7 @@
 ; Add your meteogram locations to the sitedata.ncl file, for example 1,Terlet,d2,5.9233,52.0567,
 
 ; Document your changes and change the version number. BM stands for Blipmaps
-meteogram_version = "BM20210209"
+meteogram_version = "20210313"
 wrf_version = "3.6.1"
 
 ; Changes in BM20210209 - ABC
@@ -151,7 +151,7 @@ end
 ;;;---------------------------------------------------------------------------------
 
 
-operator = "blipmaps.nl"
+operator = "aufwin.de"
 default_type = "png"
 default_ptop = 40                        ; usually 20, I changed for TS upper instability
 ;                                          Note! changing ptop modifies the y-axis and messes with plot positioning
@@ -2315,7 +2315,7 @@ end if
 
 
    timestamp=systemfunc("date +%d' '%b' '%Y' at '%H:%M' '%Z")
-   timestamp="~F21~~Z65Q~Produced on "+timestamp+" - www.blipmaps.nl - WRF"+wrf_version+" - Meteogram: "+meteogram_version
+   timestamp="~F21~~Z65Q~Produced on "+timestamp+" - aufwin.de - WRF"+wrf_version+" - Meteogram: "+meteogram_version
    timestampxNDC = .100     
    timestampyNDC = .010
 
@@ -3221,7 +3221,7 @@ end if
    ; deal with ncl png naming issue 5.1 5.2 goes away in 6.0.0. so only try if vnum < 6
 
    if ( type .eq. "png" )
-      cmd = "composite -geometry 70x50+10+5  logo.png " + windgram + ".png " +  windgram + ".png "
+      cmd = "composite -geometry 70x50+10+5  logo.svg " + windgram + ".png " +  windgram + ".png "
       ;print(cmd)
       system(cmd)   
    end if
