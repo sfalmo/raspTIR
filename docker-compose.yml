@@ -2,22 +2,12 @@ version: '3.7'
 
 services:
   tir:
-    image: aufwin.de/rasp:3.6
+    image: eu.gcr.io/aufwinde/rasp36-tir:0.2
     build: .
     volumes:
       - ../results/OUT:/root/rasp/TIR/OUT
       - ../results/LOG:/root/rasp/TIR/LOG
     environment:
-      - START_DAY=0
-      - OFFSET_HOUR=${offset:-0}
-    command: [ "runRasp.sh","TIR" ]
-  tir1:
-    image: aufwin.de/rasp:3.6
-    build: .
-    volumes:
-      - ../results/OUT:/root/rasp/TIR/OUT
-      - ../results/LOG:/root/rasp/TIR/LOG
-    environment:
-      - START_DAY=1
-      - OFFSET_HOUR=${offset:-0}
+      - START_DAY=${START_DAY:-0}
+      - OFFSET_HOUR=${OFFSET_HOUR:-0}
     command: [ "runRasp.sh","TIR" ]

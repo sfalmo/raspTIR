@@ -42,6 +42,7 @@ COPY RUN.TABLES/. $BASEDIR/RUN.TABLES
 RUN ls $BASEDIR
 RUN ls $BASEDIR/TIR
 
+# Overwrite rasp scripts
 COPY rasp-gm-TIR/ $BASEDIR/
 RUN ls $BASEDIR
 RUN ls $BASEDIR/GM
@@ -57,7 +58,10 @@ COPY logo.svg ${BASEDIR}/
 # End buildstage, begin prod container
 FROM aufwin.de/rasp-base:latest
 COPY --from=buildstage /root/rasp /root/rasp
+
 WORKDIR /root/rasp
+COPY aufwinde_key .
+RUN chmod 600 aufwinde_key
 
 VOLUME ["/root/rasp/TIR/OUT/", "/root/rasp/TIR/LOG/"]
 

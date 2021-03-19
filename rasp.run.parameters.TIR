@@ -29,7 +29,7 @@ $LRUN_WINDOW{'TIR'} = 0 ;
 @{$PARAMETER_DOLIST{'TIR'}} = ( 'wstar','bsratio','wstar_bsratio','hwcrit','dwcrit','hbl','dbl','bltopvariab','wblmaxmin','zwblmaxmin','sfcsunpct','sfcshf','sfctemp','sfcdewpt','sfcwind0','blwind','bltopwind','blwindshear','zsfclcldif','zsfclcl','zsfclclmask','zblcldif','zblcl','zblclmask','blicw','blcwbase','blcloudpct','wrf=CFRACL','wrf=CFRACM','wrf=CFRACH','rain1','cape','press950','press850','press700','press500','pfd_tot' );
 
 # ADD POSSIBLE SOUNDINGS (corresponding data must be set in file ../rasp-gm-TIR/GM/rasp.region_data.ncl)
-push @{$PARAMETER_DOLIST{'TIR'}}, ( 'sounding1' );
+push @{$PARAMETER_DOLIST{'TIR'}}, ( 'sounding1','sounding2','sounding3','sounding4','sounding5','sounding6','sounding7' );
 
 $LOCALTIME_ID{'TIR'}  = substr `date +%Z`,0,3;
 $LOCALTIME_ADJ{'TIR'} = substr `date +%z`,0,3;

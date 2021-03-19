@@ -1,3 +1,7 @@
+aufwinde_key
+ssh*
 nohup.out
 *.tar*
 *.tgz*
+geog*
+raspGM_*/

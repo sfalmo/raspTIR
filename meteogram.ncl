@@ -8,7 +8,7 @@
 ; Add your meteogram locations to the sitedata.ncl file, for example 1,Terlet,d2,5.9233,52.0567,
 
 ; Document your changes and change the version number. BM stands for Blipmaps
-meteogram_version = "20210313"
+meteogram_version = "20210318"
 wrf_version = "3.6.1"
 
 ; Changes in BM20210209 - ABC
@@ -70,7 +70,7 @@ NCARG_ROOT=getenv("NCARG_ROOT")
 
 ; Options chosen:
 
-show_pfd = 1
+show_pfd = 0
 non_metric = 0
 use_paraglider = 0
 
@@ -257,7 +257,7 @@ if (.not.isvar("show_lcl")) then
 end if
 
 if (.not.isvar("show_snow")) then
-   show_snow  = 1                 ; lowest freezing level
+   show_snow  = 0                 ; lowest freezing level
 end if
 
 if (.not.isvar("show_pbl")) then
@@ -1570,7 +1570,7 @@ end if
 ; res2D@vpWidthF changes the spacing between the results. Enlarged this to clearly show half hour results. Also enlarged type@wkWidth
 ;  res2D@vpWidthF             = 0.78            ; .82 width big!
    res2D@vpWidthF             = 0.82            ; .82 width big!
-   res2D@vpHeightF            = 0.74            ; .8 was windgram alone  height
+   res2D@vpHeightF            = 0.80            ; .8 was windgram alone  height
 
    ; Title resources 
    res2D@tiXAxisFuncCode       = "~"
@@ -2247,7 +2247,7 @@ end if
 
    uv_res = res2D
    uv_res@tmYUseLeft           	   = False  	 
-   uv_res@vcRefAnnoOn      	   = True                             ; turns off the ref vector
+   uv_res@vcRefAnnoOn      	   = False                             ; turns off the ref vector
    uv_res@vcRefAnnoOrthogonalPosF = 0.07
    uv_res@vcRefAnnoString2On  = True
    uv_res@vcRefAnnoString1 = "15 km/h"
@@ -2303,9 +2303,9 @@ end if
    cirx = (/ 0.1, 0.8, 0.8 , 0.1 , 0.1/)
 ;   ciry = (/ 0.1, 0.1, 0.038, 0.038, 0.1/)
    ciry = (/ 0.114, 0.114, 0.038, 0.038, 0.1/)
-   gsres = True             ; Indicate you want to set some resources.
-   gsres@gsFill = False
-   gsn_polyline_ndc(wks,cirx,ciry,gsres)  ; Draw a filled polygon.
+;   gsres = True             ; Indicate you want to set some resources.
+;   gsres@gsFill = False
+;   gsn_polyline_ndc(wks,cirx,ciry,gsres)  ; Draw a filled polygon.
 
 ;   wrf_version_file = BASEDIR + "/bin/WRF_VERSION.txt"
 ;   wrf_version = ""
@@ -2340,31 +2340,22 @@ lokX = locX+1
    timestamp2xNDC = .100
    timestamp2yNDC = .030
 
-;   legend1="~F21~~Z65Q~CAPE = Convective Available Potential Energy"
-;   gsn_text_ndc(wks,legend1,0.11,0.09,lbtxtres)
-;   legend2="~F21~~Z65Q~Values between 300 and 1000 indicate possibility of isolated temporary thunderstorm"
-;   gsn_text_ndc(wks,legend2,0.11,0.075,lbtxtres)
-;   legend3="~F21~~Z65Q~Values between 1000 and 2000 indicate good chance of well developed thunderstorms"
-;   gsn_text_ndc(wks,legend3,0.11,0.06,lbtxtres)
-;   legend4="~F21~~Z65Q~Values above 2000 indicate high possibility of (strong) thunderstorms"
-;   gsn_text_ndc(wks,legend4,0.11,0.045,lbtxtres)
-
-   legend1="~F21~~Z65Q~CAPE values >300 show on top        300-1000                                  1000-2000                                   >2000"
-   gsn_text_ndc(wks,legend1,0.11,0.105,lbtxtres)
-   legend2="~F21~~Z65Q~                      Thunderstorm(s):      Isolated temporary    Good chance of well developed    High possibility (strong)"
-   gsn_text_ndc(wks,legend2,0.11,0.09,lbtxtres)
-   legend3="~F21~~Z65Q~xx% = Normalised Surface Sun                     Cloudbase: White = Cumulus    Dark = OvercastDevelopment"
-   gsn_text_ndc(wks,legend3,0.11,0.075,lbtxtres)
-   legend4="~F21~~Z65Q~xx% = Boundarylayer Cloudcover                  m = lift<1,14m/s incl.cloudbase limits *excl.cloudsuck"
-   if (non_metric.eq.1) then
-      legend4="~F21~~Z65Q~xx% = Boundarylayer Cloudcover                  m = lift<220 fpm incl.cloudbase limits *excl.cloudsuck"
-   end if
-   gsn_text_ndc(wks,legend4,0.11,0.06,lbtxtres)
-   legend5= "~F21~~Z65Q~xxx/xx = winddirection/windspeed in km/h @ 2m AGL"
-   if (non_metric.eq.1) then
-     legend5= "~F21~~Z65Q~xxx/xx = winddirection/windspeed in mph @ 7ft AGL"
-   end if
-   gsn_text_ndc(wks,legend5,0.11,0.045,lbtxtres)
+;   legend1="~F21~~Z65Q~CAPE values >300 show on top        300-1000                                  1000-2000                                   >2000"
+;   gsn_text_ndc(wks,legend1,0.11,0.105,lbtxtres)
+;   legend2="~F21~~Z65Q~                      Thunderstorm(s):      Isolated temporary    Good chance of well developed    High possibility (strong)"
+;   gsn_text_ndc(wks,legend2,0.11,0.09,lbtxtres)
+;   legend3="~F21~~Z65Q~xx% = Normalised Surface Sun                     Cloudbase: White = Cumulus    Dark = OvercastDevelopment"
+;   gsn_text_ndc(wks,legend3,0.11,0.075,lbtxtres)
+;   legend4="~F21~~Z65Q~xx% = Boundarylayer Cloudcover                  m = lift<1,14m/s incl.cloudbase limits *excl.cloudsuck"
+;   if (non_metric.eq.1) then
+;      legend4="~F21~~Z65Q~xx% = Boundarylayer Cloudcover                  m = lift<220 fpm incl.cloudbase limits *excl.cloudsuck"
+;   end if
+;   gsn_text_ndc(wks,legend4,0.11,0.06,lbtxtres)
+;   legend5= "~F21~~Z65Q~xxx/xx = winddirection/windspeed in km/h @ 2m AGL"
+;   if (non_metric.eq.1) then
+;     legend5= "~F21~~Z65Q~xxx/xx = winddirection/windspeed in mph @ 7ft AGL"
+;   end if
+;   gsn_text_ndc(wks,legend5,0.11,0.045,lbtxtres)
 
    ; windbarb5=NhlNewMarker(wks, "b", 37, 0, 0,   1, 1, 0)  			 
    ; mkresWindBarb5            = True
@@ -2384,9 +2375,9 @@ lokX = locX+1
    gsn_text_ndc(wks,timestamp2,timestamp2xNDC,timestamp2yNDC,lbtxtres)
 
 ; Add extra legend for vertical velocity and altitude levels
-   timestamp3="~F21~~Z65Q~m/s* AMSL"
+   timestamp3="~F21~~Z65Q~m/s"
    if (non_metric.eq.1) then
-      timestamp3="~F21~~Z65Q~fpm* AMSL"
+      timestamp3="~F21~~Z65Q~fpm"
    end if
    timestamp3xNDC = .905
    timestamp3yNDC = .938
@@ -2394,11 +2385,11 @@ lokX = locX+1
 
 ; Add extra legend with potential flight distance
    if ( show_pfd.ne.0) then
-     timestamp4="~F21~~Z70Q~PFD="
+     timestamp4="~F21~~Z70Q~PFD"
      timestamp4xNDC = .920
      timestamp4yNDC = .060
      gsn_text_ndc(wks,timestamp4,timestamp4xNDC,timestamp4yNDC,lbtxtres)
-     timestamp5="~F21~~Z70Q~"+pfd+" KM"
+     timestamp5="~F21~~Z70Q~"+pfd+" km"
      if (non_metric.eq.1) then
         pfd_miles = pfd/1.6
         timestamp5="~F21~~Z70Q~"+pfd_miles+" M"
@@ -2406,16 +2397,16 @@ lokX = locX+1
      timestamp5xNDC = .920
      timestamp5yNDC = .042
      gsn_text_ndc(wks,timestamp5,timestamp5xNDC,timestamp5yNDC,lbtxtres)
-
-     timestamp6="~F21~~Z65Q~All times"
-     timestamp6xNDC = .920
-     timestamp6yNDC = .190
-     gsn_text_ndc(wks,timestamp6,timestamp6xNDC,timestamp6yNDC,lbtxtres)
-     timestamp7="~F21~~Z65Q~are local"
-     timestamp7xNDC = .920
-     timestamp7yNDC = .172
-     gsn_text_ndc(wks,timestamp7,timestamp7xNDC,timestamp7yNDC,lbtxtres)
    end if
+   timestamp6="~F21~~Z65Q~AMSL"
+   timestamp6xNDC = .920
+   timestamp6yNDC = .120
+   gsn_text_ndc(wks,timestamp6,timestamp6xNDC,timestamp6yNDC,lbtxtres)
+   timestamp7="~F21~~Z65Q~Local time"
+   timestamp7xNDC = .920
+   timestamp7yNDC = .098
+   gsn_text_ndc(wks,timestamp7,timestamp7xNDC,timestamp7yNDC,lbtxtres)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;SUNRISESET Compute apparent sunrise and sunset times in seconds.
@@ -2565,27 +2556,27 @@ print ("Sunset = "+BD+":"+BG+":"+BI)
 ; Add extra legend for sunrise and sunset
    timestamp8="~F21~~Z65Q~Sunrise"
    timestamp8xNDC = .920
-   timestamp8yNDC = .138
+   timestamp8yNDC = .074
    gsn_text_ndc(wks,timestamp8,timestamp8xNDC,timestamp8yNDC,lbtxtres)
 if (AG.le.9) then
-   timestamp9= "~F21~~Z65Q~+/-0"+AD+":0"+AG
+   timestamp9= "~F21~~Z65Q~0"+AD+":0"+AG
 else
-   timestamp9= "~F21~~Z65Q~+/-0"+AD+":"+AG
+   timestamp9= "~F21~~Z65Q~0"+AD+":"+AG
 end if
    timestamp9xNDC = .920
-   timestamp9yNDC = .120
+   timestamp9yNDC = .056
    gsn_text_ndc(wks,timestamp9,timestamp9xNDC,timestamp9yNDC,lbtxtres)
    timestamp10="~F21~~Z65Q~Sunset"
    timestamp10xNDC = .920
-   timestamp10yNDC = .102
+   timestamp10yNDC = .038
    gsn_text_ndc(wks,timestamp10,timestamp10xNDC,timestamp10yNDC,lbtxtres)
 if (BG.le.9) then
-   timestamp11= "~F21~~Z65Q~+/-"+BD+":0"+BG
+   timestamp11= "~F21~~Z65Q~"+BD+":0"+BG
 else
-   timestamp11= "~F21~~Z65Q~+/-"+BD+":"+BG
+   timestamp11= "~F21~~Z65Q~"+BD+":"+BG
 end if
    timestamp11xNDC = .920
-   timestamp11yNDC = .084
+   timestamp11yNDC = .020
    gsn_text_ndc(wks,timestamp11,timestamp11xNDC,timestamp11yNDC,lbtxtres)
 ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2944,7 +2935,7 @@ end if
 
    instability_caption = "~F21~~Z65Q~Unstable                                          Conditional Instability                                             Stable                                             Inverted"
    lbtxtres@txFontHeightF = 0.015
-   gsn_text_ndc ( wks, instability_caption, .106, .12, lbtxtres )  ; was .113, .024 for bottom of box
+   gsn_text_ndc ( wks, instability_caption, .106, .05, lbtxtres )  ; was .113, .024 for bottom of box
 
    ; Temperature contour lines if desired.
 
@@ -3221,7 +3212,7 @@ end if
    ; deal with ncl png naming issue 5.1 5.2 goes away in 6.0.0. so only try if vnum < 6
 
    if ( type .eq. "png" )
-      cmd = "composite -geometry 70x50+10+5  logo.svg " + windgram + ".png " +  windgram + ".png "
+      cmd = "composite -geometry 70x60+5+5  logo.svg " + windgram + ".png " +  windgram + ".png "
       ;print(cmd)
       system(cmd)   
    end if

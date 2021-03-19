@@ -32,6 +32,7 @@ RUN dnf update -y && dnf install -y \
   bzip2 \
   pigz \
   openssh-clients \
+  rsync \
   && dnf clean all
   
 # configure CPAN and install required modules
