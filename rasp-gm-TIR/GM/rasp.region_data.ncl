@@ -38,3 +38,11 @@ sounding7
 ~F34~7~F21~Klatovy
 49.4172
 13.3215
+sounding8
+~F34~7~F21~Wasserkuppe
+50.4989
+9.9541
+sounding9
+~F34~7~F21~Sonnen
+48.6823
+13.6949

@@ -64,11 +64,11 @@ echo "Started running rasp at ${startDate} ${startTime}, ended at $(date)"
 if [[ "${WEBSERVER_SEND}" == "1" ]]
 then
   # Always sync contents of log directory
-  rsync -e "ssh -i aufwinde_key -o StrictHostKeychecking=no" -rd "${logDir}/" "${WEBSERVER_USER}@${WEBSERVER_HOST}:${WEBSERVER_RESULTSDIR}/LOG/"
+  rsync -e "ssh -i aufwinde_key -o StrictHostKeychecking=no" -rlt --delete-after "${logDir}/" "${WEBSERVER_USER}@${WEBSERVER_HOST}:${WEBSERVER_RESULTSDIR}/LOG/"
   if [[ "$(ls -A ${targetDir})" ]]
   then
     # If there is output, sync it. Otherwise, back off and be happy with the data that is already on the webserver
-    rsync -e "ssh -i aufwinde_key -o StrictHostKeychecking=no" -rd ${targetDir} "${WEBSERVER_USER}@${WEBSERVER_HOST}:${WEBSERVER_RESULTSDIR}/OUT/"
+    rsync -e "ssh -i aufwinde_key -o StrictHostKeychecking=no" -rlt --delete-after ${targetDir} "${WEBSERVER_USER}@${WEBSERVER_HOST}:${WEBSERVER_RESULTSDIR}/OUT/"
   fi
 fi
 
