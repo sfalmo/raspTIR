@@ -2,6 +2,7 @@ import re
 import glob
 import numpy as np
 import gdal, osr
+import sys
 
 def getLatLngBoundsFromWRF(wrfoutfile):
     ds_lon_u = gdal.Open(f'NETCDF:"{wrfoutfile}":XLONG_U')
@@ -55,8 +56,13 @@ def writeGeoTIFF(filename, data, wrf_srs, gt):
     warp = None
 
 
-bounds = getLatLngBoundsFromWRF(glob.glob('wrfout_d02_*')[0])
-for datafile in glob.glob("*.data"):
+if len(sys.argv) != 2:
+    print("Script must be called with path to wrfout and rasp data files")
+    exit(1)
+
+path = sys.argv[1]
+bounds = getLatLngBoundsFromWRF(glob.glob(path+'wrfout_d02_*')[0])
+for datafile in glob.glob(path+"*.data"):
     print(f"Converting {datafile} to geoTIFF")
     with open(datafile, 'r') as d:
         d.readline()
@@ -77,6 +83,6 @@ for datafile in glob.glob("*.data"):
 
     wrf_srs = getWRFSpatialReference(trueLat1, trueLat2, refLng, centerLat)
     gt = getGeoTransform(wrf_srs, bounds, data.shape)
-    writeGeoTIFF(datafile+'.tiff', data, wrf_srs, gt)
+    writeGeoTIFF(path+datafile+'.tiff', data, wrf_srs, gt)
 
 
