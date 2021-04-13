@@ -38,7 +38,7 @@ ncl bin/meteogram.ncl DOMAIN=\"${region}\" SITEDATA=\"/root/rasp/bin/sitedata.nc
 perl bin/title2json.pl /root/rasp/${region}/OUT
 
 # Generate geotiffs from data files
-python bin/rasp2geotiff.py /root/rasp/${region}/OUT
+python3 bin/rasp2geotiff.py /root/rasp/${region}
 
 outDir="${regionDir}/OUT"
 logDir="${regionDir}/LOG"
@@ -54,6 +54,7 @@ rm -rf ${targetDir}/*
 # Move results
 mv ${outDir}/*.data ${targetDir}
 mv ${outDir}/*.json ${targetDir}
+mv ${outDir}/*.tiff ${targetDir}
 mv ${outDir}/*.png ${targetDir}
 chmod 644 ${targetDir}/*
 

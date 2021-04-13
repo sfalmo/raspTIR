@@ -33,6 +33,8 @@ RUN dnf update -y && dnf install -y \
   pigz \
   openssh-clients \
   rsync \
+  python3 \
+  gdal-python3 \
   && dnf clean all
   
 # configure CPAN and install required modules

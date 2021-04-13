@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   tir:
-    image: eu.gcr.io/aufwinde/rasp36-tir:0.3
+    image: eu.gcr.io/aufwinde/rasp36-tir:0.6
     build: .
     volumes:
       - ../results/OUT:/root/rasp/TIR/OUT

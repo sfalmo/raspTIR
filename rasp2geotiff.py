@@ -5,10 +5,11 @@ import gdal, osr
 import sys
 
 def getLatLngBoundsFromWRF(wrfoutfile):
-    ds_lon_u = gdal.Open(f'NETCDF:"{wrfoutfile}":XLONG_U')
-    ds_lat_u = gdal.Open(f'NETCDF:"{wrfoutfile}":XLAT_U')
-    ds_lon_v = gdal.Open(f'NETCDF:"{wrfoutfile}":XLONG_V')
-    ds_lat_v = gdal.Open(f'NETCDF:"{wrfoutfile}":XLAT_V')
+    netcdf = 'NETCDF:"'+wrfoutfile+'":'
+    ds_lon_u = gdal.Open(netcdf+'XLONG_U')
+    ds_lat_u = gdal.Open(netcdf+'XLAT_U')
+    ds_lon_v = gdal.Open(netcdf+'XLONG_V')
+    ds_lat_v = gdal.Open(netcdf+'XLAT_V')
 
     lon_u = ds_lon_u.GetRasterBand(1).ReadAsArray()
     lat_u = ds_lat_u.GetRasterBand(1).ReadAsArray()
@@ -29,7 +30,7 @@ def getLatLngBoundsFromWRF(wrfoutfile):
 
 def getWRFSpatialReference(trueLat1, trueLat2, refLng, centerLat):
     wrf_srs = osr.SpatialReference()
-    wrf_srs.ImportFromProj4(f"+proj=lcc +lat_1={trueLat1} +lat_2={trueLat2} +lon_0={refLng} +lat_0={centerLat} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
+    wrf_srs.ImportFromProj4("+proj=lcc +lat_1={trueLat1} +lat_2={trueLat2} +lon_0={refLng} +lat_0={centerLat} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs".format(trueLat1=trueLat1, trueLat2=trueLat2, refLng=refLng, centerLat=centerLat))
     return wrf_srs
 
 def getGeoTransform(wrf_srs, bounds, dataDim):
@@ -61,9 +62,12 @@ if len(sys.argv) != 2:
     exit(1)
 
 path = sys.argv[1]
-bounds = getLatLngBoundsFromWRF(glob.glob(path+'wrfout_d02_*')[0])
-for datafile in glob.glob(path+"*.data"):
-    print(f"Converting {datafile} to geoTIFF")
+bounds = getLatLngBoundsFromWRF(glob.glob(path+'/wrfout_d02_*')[0])
+datafiles = glob.glob(path+"/OUT/*.data")
+print(path)
+print(datafiles)
+for datafile in datafiles:
+    print("Converting "+datafile+" to geoTIFF")
     with open(datafile, 'r') as d:
         d.readline()
         d.readline()
@@ -83,6 +87,6 @@ for datafile in glob.glob(path+"*.data"):
 
     wrf_srs = getWRFSpatialReference(trueLat1, trueLat2, refLng, centerLat)
     gt = getGeoTransform(wrf_srs, bounds, data.shape)
-    writeGeoTIFF(path+datafile+'.tiff', data, wrf_srs, gt)
+    writeGeoTIFF(datafile+'.tiff', data, wrf_srs, gt)
 
 
