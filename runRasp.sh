@@ -37,6 +37,9 @@ ncl bin/meteogram.ncl DOMAIN=\"${region}\" SITEDATA=\"/root/rasp/bin/sitedata.nc
 # Generate title JSONs from data files
 perl bin/title2json.pl /root/rasp/${region}/OUT
 
+# Generate geotiffs from data files
+python bin/rasp2geotiff.py /root/rasp/${region}/OUT
+
 outDir="${regionDir}/OUT"
 logDir="${regionDir}/LOG"
 runSubdir="${region}"

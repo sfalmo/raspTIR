@@ -52,7 +52,7 @@ RUN cd $BASEDIR/TIR/ \
   && geogrid.exe
 RUN rm -rf $BASEDIR/geog
 
-COPY runRasp.sh meteogram.ncl sitedata.ncl title2json.pl ${BASEDIR}/bin/
+COPY runRasp.sh meteogram.ncl sitedata.ncl title2json.pl rasp2geotiff.py ${BASEDIR}/bin/
 COPY logo.svg ${BASEDIR}/
 
 # End buildstage, begin prod container
