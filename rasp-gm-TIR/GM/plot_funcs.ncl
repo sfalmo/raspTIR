@@ -2567,6 +2567,7 @@ begin
 				opts_bparam@mult = 1.0
 			end if
 			opts_bparam@MainTitle = wrf_mag@description
+			ldatafmt = 2
 			ldatafmt = plot_contour(wks, bg, wrf_mag, params(p), tail, alat, alon, gridspacingkm, opts_cn, opts_bparam, opts_bg, ldatafmt)
 			bparam = wrf_mag
 			copy_VarAtts(atts, bparam)
