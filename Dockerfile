@@ -1,4 +1,4 @@
-FROM aufwin.de/rasp-base:latest AS buildstage
+FROM eu.gcr.io/aufwinde/rasp-base:0.1 AS buildstage
 
 # Geographical data
 COPY geog.tar.gz $BASEDIR
@@ -56,7 +56,7 @@ COPY runRasp.sh meteogram.ncl sitedata.ncl title2json.pl rasp2geotiff.py ${BASED
 COPY logo.svg ${BASEDIR}/
 
 # End buildstage, begin prod container
-FROM aufwin.de/rasp-base:latest
+FROM eu.gcr.io/aufwinde/rasp-base:0.1
 COPY --from=buildstage /root/rasp /root/rasp
 
 WORKDIR /root/rasp
