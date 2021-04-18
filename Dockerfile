@@ -7,12 +7,6 @@ RUN cd $BASEDIR \
   && rm geog.tar.gz
 RUN ls $BASEDIR
 
-COPY geog.fine.tar.gz $BASEDIR
-RUN cd $BASEDIR \
-  && tar xf geog.fine.tar.gz \
-  && rm geog.fine.tar.gz
-RUN ls $BASEDIR
-
 # raspGM base
 COPY raspGM_36.tar.gz $BASEDIR
 RUN cd $BASEDIR \
