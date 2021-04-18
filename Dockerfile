@@ -8,10 +8,10 @@ RUN cd $BASEDIR \
 RUN ls $BASEDIR
 
 # raspGM base
-COPY raspGM_36.tar.gz $BASEDIR
+COPY raspGM_39.tar.gz $BASEDIR
 RUN cd $BASEDIR \
-  && tar xf raspGM_36.tar.gz --strip-components=1 \
-  && rm raspGM_36.tar.gz
+  && tar xf raspGM_39.tar.gz --strip-components=1 \
+  && rm raspGM_39.tar.gz
 RUN ls $BASEDIR
 
 # coastlines and lakes
