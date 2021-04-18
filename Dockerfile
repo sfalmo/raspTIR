@@ -7,17 +7,11 @@ RUN cd $BASEDIR \
   && rm geog.tar.gz
 RUN ls $BASEDIR
 
-COPY geog.fine.tar.gz $BASEDIR
-RUN cd $BASEDIR \
-  && tar xf geog.fine.tar.gz \
-  && rm geog.fine.tar.gz
-RUN ls $BASEDIR
-
 # raspGM base
-COPY raspGM_36.tar.gz $BASEDIR
+COPY raspGM_41.tar.gz $BASEDIR
 RUN cd $BASEDIR \
-  && tar xf raspGM_36.tar.gz --strip-components=1 \
-  && rm raspGM_36.tar.gz
+  && tar xf raspGM_41.tar.gz --strip-components=1 \
+  && rm raspGM_41.tar.gz
 RUN ls $BASEDIR
 
 # coastlines and lakes
